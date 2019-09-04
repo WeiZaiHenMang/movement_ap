@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import table from '../views/tabel.vue'
-import home from '../views/home/home.vue'
+import home from '../views/home'
 
 Vue.use(Router)
 
