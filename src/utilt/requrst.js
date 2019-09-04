@@ -1,5 +1,6 @@
 import axios from 'axios'
 import jsonbig from 'json-bigint'
+import store from '../store/index'
 
 // 设置axios实例
 const instance = axios.create({
@@ -21,6 +22,10 @@ instance.defaults.transformResponse = [function (data) {
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  if (store.state.user) {
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
+  }
+  console.log(config)
   return config
 }, function (error) {
   // 对请求错误做些什么
