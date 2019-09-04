@@ -29,9 +29,17 @@ export default {
     async landing () {
       try {
         const result = await login(this.user)
-        console.log(result)
+        // console.log(result)
+        // token值vant储存，本地储存一并建好
+        this.$store.commit('settoken', result)
+        // 登陆完成跳转页面
+        this.$router.push('/')
+        // 登陆完场弹窗
+        this.$toast.success('Go Go Go~~')
       } catch (error) {
-        console.log('错误')
+        // console.log('错误')
+        // 登陆失败弹窗
+        this.$toast.fail('登陆失败')
       }
     }
   }
