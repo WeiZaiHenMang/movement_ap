@@ -5,7 +5,7 @@ import store from '../store/index'
 // 设置axios实例
 const instance = axios.create({
   baseURL: 'http://ttapi.research.itcast.cn',
-  timeout: 1000
+  timeout: 2000
 })
 
 // 大数据转换
