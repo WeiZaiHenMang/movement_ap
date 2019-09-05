@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'table',
+  name: 'Table',
   data () {
     return {
       active: 0,

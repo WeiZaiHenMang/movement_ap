@@ -25,7 +25,7 @@ instance.interceptors.request.use(function (config) {
   if (store.state.user) {
     config.headers.Authorization = `Bearer ${store.state.user.token}`
   }
-  console.log(config)
+  // console.log(config)
   return config
 }, function (error) {
   // 对请求错误做些什么

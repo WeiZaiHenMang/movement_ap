@@ -9,3 +9,4 @@ export const login = ({
     code
   })
 }
+export const channel = () => request.get('/app/v1_0/user/channels')
