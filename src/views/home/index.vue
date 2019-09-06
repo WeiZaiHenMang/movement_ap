@@ -3,21 +3,49 @@
     <!-- 头部 -->
     <van-row>
       <van-col span="2">
-        <van-icon name="qr" size="26"/>
+        <van-icon name="qr" size="26" />
       </van-col>
       <van-col span="20">
         <van-search placeholder="请输入搜索关键词" background="#3e9df8" shape="round" />
       </van-col>
       <van-col span="2">
-        <van-icon name="search" size="26"/>
+        <van-icon name="search" size="26" />
       </van-col>
     </van-row>
     <!-- 频道列表 -->
     <van-tabs animated v-model="active">
       <van-tab v-for="item in channel" :title="item.name" :key="item.id">
         <!-- 内容区 -->
-        <van-list v-model="channel.loading" :finished="channel.finished" finished-text="没有更多了" @load="onLoad">
-          <van-cell v-for="item in newdate.navjournalism" :key="item.art_id" :title="item.title" />
+        <van-list
+          v-model="channel.loading"
+          :finished="channel.finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <van-cell
+            v-for="item in newdate.navjournalism"
+            :key="item.art_id.toString()"
+            :title="item.title"
+          >
+            <div slot="label">
+              <van-grid v-if="cover.type" :border="false" :column-num="3">
+                <van-grid-item
+                v-for="(item,id) in cover.images"
+                :key="item+id"
+                center
+                square
+                >
+                  <van-image  :src="item" />
+                </van-grid-item>
+              </van-grid>
+              <span>{{item.aut_name}}</span>&nbsp;
+              <span>{{item.comm_count}}评论</span>&nbsp;
+              <span>{{item.pubdate}}</span>
+              <span class="ico">
+                <van-icon name="cross" />
+              </span>
+            </div>
+          </van-cell>
         </van-list>
       </van-tab>
     </van-tabs>
@@ -34,7 +62,9 @@ export default {
       // 频道列表
       channel: [],
       // 频道当前索引值
-      active: 0
+      active: 0,
+      // 封面
+      cover: {}
     }
   },
   computed: {
@@ -58,18 +88,23 @@ export default {
     // 请求新闻数据
     async onLoad () {
       // let newdate = this.channel[this.active]
-      // console.log(newdate)
       let content = await journalism({
         channelId: this.newdate.id,
         timestamp: this.newdate.timestamp || Date.now(),
         withTop: 1
       })
+      // 下拉功能实现
       this.newdate.timestamp = content.pre_timestamp
       this.newdate.navjournalism.push(...content.results)
       this.channel.loading = false
-      if (content.results === 0) {
+      if (content.results.length === 0) {
         this.channel.finished = true
       }
+      // 图片功能实现
+      content.results.forEach(result => {
+        this.cover = result.cover
+        // console.log(result.cover)
+      })
     }
   },
   created () {
@@ -79,7 +114,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.big-box{
+.big-box {
   // position: relative;
   .van-row {
     position: fixed;
@@ -98,5 +133,9 @@ export default {
 .van-tabs {
   margin-top: 54px;
   margin-bottom: 50px;
+}
+.ico {
+  font-size: 16px;
+  float: right;
 }
 </style>
