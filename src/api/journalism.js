@@ -13,3 +13,11 @@ export const journalism = ({
     }
   })
 }
+// 不感兴趣
+export const getinterest = ({
+  target
+}) => {
+  return request.post('/app/v1_0/article/dislikes', {
+    target
+  })
+}

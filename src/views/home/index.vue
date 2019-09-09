@@ -47,7 +47,7 @@
               <span>{{item.aut_name}}</span>&nbsp;
               <span>{{item.comm_count}}评论</span>&nbsp;
               <span>{{item.pubdate|fmday}}</span>
-              <span class="ico" @click="popup_sh=true">
+              <span class="ico" @click="byvalue(item)">
                 <van-icon name="cross" />
               </span>
             </div>
@@ -55,7 +55,7 @@
         </van-list>
       </van-tab>
     </van-tabs>
-    <popup v-model="popup_sh"></popup>
+    <popup :popup="bypopup" v-model="popup_sh"></popup>
   </div>
 </template>
 
@@ -82,7 +82,9 @@ export default {
       // 封面
       cover: {},
       // X弹窗判定
-      popup_sh: false
+      popup_sh: false,
+      // X弹窗收值
+      bypopup: {}
     }
   },
   computed: {
@@ -123,6 +125,14 @@ export default {
         this.cover = result.cover
         // console.log(result.cover)
       })
+    },
+    // X点击传值
+    byvalue (item) {
+      // 弹窗显示
+      this.popup_sh = true
+      // 传值
+      this.bypopup = item
+      // console.log(item)
     }
   },
   created () {

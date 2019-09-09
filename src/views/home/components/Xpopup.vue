@@ -6,9 +6,9 @@
   closeOnClickOverlay
 >
 <van-cell-group v-show="!showtwo">
-  <van-cell icon="clear" title="不感兴趣" />
+  <van-cell icon="clear" title="不感兴趣" @click="popups('interest')"/>
   <van-cell icon="question" title="反馈垃圾内容" is-link @click="showtwo=true"/>
-  <van-cell icon="warning" title="拉黑作责" />
+  <van-cell icon="warning" title="拉黑作者" @click="popups('blacklist')"/>
 </van-cell-group>
 <van-cell-group v-show="showtwo">
   <van-cell is-link arrow-direction="left" @click="showtwo=false"/>
@@ -26,17 +26,47 @@
 </template>
 
 <script>
+import { getinterest } from '../../../api/journalism'
 export default {
   name: 'Xpopup',
   props: {
     value: {
       type: Boolean,
       required: true
+    },
+    popup: {
+      type: Object,
+      required: true
     }
   },
   data () {
     return {
       showtwo: false
+    }
+  },
+  methods: {
+    popups (type) {
+      switch (type) {
+        case 'interest':
+        //   console.log('hi')
+          this.interest()
+          break
+        case 'blacklist':
+
+          break
+      }
+    },
+    // 不感兴趣
+    async interest () {
+      console.log(this.popup.art_id.toString())
+      try {
+        await getinterest({
+          target: this.popup.art_id.toString()
+        })
+        this.$toast.success('操作成功')
+      } catch (error) {
+        this.$toast.fail('操作失败')
+      }
     }
   }
 }
