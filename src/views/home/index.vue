@@ -34,8 +34,14 @@
                 :key="item+id"
                 center
                 square
+                lazy-load
                 >
-                  <van-image  :src="item" />
+                  <van-image  :src="item">
+                    <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                    </template>
+                    <template v-slot:error>加载失败</template>
+                  </van-image>
                 </van-grid-item>
               </van-grid>
               <span>{{item.aut_name}}</span>&nbsp;
@@ -55,6 +61,10 @@
 <script>
 import { channel } from '../../api/channel'
 import { journalism } from '../../api/journalism'
+// 图片懒加载
+import Vue from 'vue'
+import { Lazyload } from 'vant'
+Vue.use(Lazyload)
 export default {
   name: 'home',
   data () {
