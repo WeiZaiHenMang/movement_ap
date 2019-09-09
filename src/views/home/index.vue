@@ -46,7 +46,7 @@
               </van-grid>
               <span>{{item.aut_name}}</span>&nbsp;
               <span>{{item.comm_count}}评论</span>&nbsp;
-              <span>{{item.pubdate}}</span>
+              <span>{{item.pubdate|fmday}}</span>
               <span class="ico">
                 <van-icon name="cross" />
               </span>
