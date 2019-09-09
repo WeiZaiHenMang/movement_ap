@@ -47,7 +47,7 @@
               <span>{{item.aut_name}}</span>&nbsp;
               <span>{{item.comm_count}}评论</span>&nbsp;
               <span>{{item.pubdate|fmday}}</span>
-              <span class="ico">
+              <span class="ico" @click="popup_sh=true">
                 <van-icon name="cross" />
               </span>
             </div>
@@ -55,6 +55,7 @@
         </van-list>
       </van-tab>
     </van-tabs>
+    <popup v-model="popup_sh"></popup>
   </div>
 </template>
 
@@ -64,9 +65,14 @@ import { journalism } from '../../api/journalism'
 // 图片懒加载
 import Vue from 'vue'
 import { Lazyload } from 'vant'
+// X事件弹出层
+import popup from './components/Xpopup'
 Vue.use(Lazyload)
 export default {
   name: 'home',
+  components: {
+    popup
+  },
   data () {
     return {
       // 频道列表
@@ -74,7 +80,9 @@ export default {
       // 频道当前索引值
       active: 0,
       // 封面
-      cover: {}
+      cover: {},
+      // X弹窗判定
+      popup_sh: false
     }
   },
   computed: {
