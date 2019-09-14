@@ -51,9 +51,8 @@ export default {
             return
           }
           const result = await login(this.user)
-          // console.log(result)
           // token值vant储存，本地储存一并建好
-          this.$store.commit('settoken', result)
+          this.$store.commit('setuser', result)
           // 登陆完成跳转页面
           this.$router.push('/')
           // 登陆完场弹窗

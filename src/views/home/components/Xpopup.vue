@@ -64,6 +64,7 @@ export default {
           target: this.popup.art_id.toString()
         })
         this.$toast.success('操作成功')
+        this.$emit('interestok')
       } catch (error) {
         this.$toast.fail('操作失败')
       }

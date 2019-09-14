@@ -55,7 +55,7 @@
         </van-list>
       </van-tab>
     </van-tabs>
-    <popup :popup="bypopup" v-model="popup_sh"></popup>
+    <popup :popup="bypopup" @interestok='interestok' v-model="popup_sh"></popup>
   </div>
 </template>
 
@@ -133,6 +133,18 @@ export default {
       // 传值
       this.bypopup = item
       // console.log(item)
+    },
+    // 当不感兴趣完成后
+    interestok () {
+      // 弹窗隐藏
+      this.popup_sh = false
+      // 找出数组中的这项，取他的id进行删除
+      // console.log(this.newdate)
+      const newSuZu = this.newdate.navjournalism
+      const index = newSuZu.findIndex(item => {
+        return newSuZu.art_id === this.newdate.art_id
+      })
+      newSuZu.splice(index, 1)
     }
   },
   created () {
