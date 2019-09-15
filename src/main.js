@@ -8,6 +8,7 @@ import '../src/style/index.less'
 import chinese from '../node_modules/vee-validate/dist/locale/zh_CN'
 import VeeValidate, { Validator } from 'vee-validate'
 import { fmday } from './utilt/dayjs'
+import 'amfe-flexible'
 
 Vue.use(Vant)
 
